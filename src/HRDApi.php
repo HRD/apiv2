@@ -1919,8 +1919,14 @@ class HRDApi
                 stream_context_set_option($context, 'ssl', 'verify_peer', false);
                 stream_context_set_option($context, 'ssl', 'verify_peer_name', false);
             }
-            $this->fp = stream_socket_client('ssl://' . $this->host . ':' . $this->port, $errno, $errstr,
-                $this->timeout, STREAM_CLIENT_CONNECT, $context);
+            $this->fp = stream_socket_client(
+                'ssl://' . $this->host . ':' . $this->port,
+                $errno,
+                $errstr,
+                $this->timeout,
+                STREAM_CLIENT_CONNECT,
+                $context
+            );
             if ($this->fp === false) {
                 throw new HRDApiCommunicationException('connect error');
             }
@@ -2221,282 +2227,280 @@ class HRDApi
         }
         switch ($type) {
             case self::PERSON;
-                $elem->appendChild($dom->createElement('personType'));
-                break;
-            case self::COMPANY:
-                $elem->appendChild($dom->createElement('companyType'));
-                $elem->appendChild($dom->createElement('org', $org));
-                break;
-            default:
-                throw new HRDApiIncorrectDataException('invalid type');
-        }
-        $elem->appendChild($dom->createElement('name', $name));
-        $elem->appendChild($dom->createElement('voice', $voice));
-        if ($fax) {
-            $elem->appendChild($dom->createElement('fax', $fax));
-        }
-        $elem->appendChild($dom->createElement('street', $street));
-        $elem->appendChild($dom->createElement('postcode', $postcode));
-        $elem->appendChild($dom->createElement('city', $city));
-        $elem->appendChild($dom->createElement('sp', $sp));
-        $elem->appendChild($dom->createElement('country', $country));
-        $elem->appendChild($dom->createElement('email', $email));
-
-        return $this->sendIntResponse($dom, 'partner/contactCreate/contactId');
-    }
-
-    /**
-     * @param int $contactId
-     * @param string|null $org
-     * @param string $name
-     * @param string $voice
-     * @param string $fax
-     * @param string $street
-     * @param string $postcode
-     * @param string $city
-     * @param string $sp
-     * @param string $country
-     * @param string $email
-     * @return bool
-     */
-    public function partnerContactUpdate(
-        int $contactId,
-        string $org = null,
-        string $name,
-        string $voice,
-        string $fax = null,
-        string $street,
-        string $postcode,
-        string $city,
-        string $sp,
-        string $country,
-        string $email
-    ) {
-        /* @var \DOMDocument $dom */
-        /* @var \DOMElement $elem */
-        list($dom, $elem) = $this->getAPIDOMDocument('partner', 'contactUpdate');
-
-        $elem->appendChild($dom->createElement('id', $contactId));
-
-        if ($org) {
+            $elem->appendChild($dom->createElement('personType'));
+            break;
+        case self::COMPANY:
+            $elem->appendChild($dom->createElement('companyType'));
             $elem->appendChild($dom->createElement('org', $org));
-        }
-
-        $elem->appendChild($dom->createElement('name', $name));
-        $elem->appendChild($dom->createElement('voice', $voice));
-        if ($fax) {
-            $elem->appendChild($dom->createElement('fax', $fax));
-        }
-
-        $elem->appendChild($dom->createElement('street', $street));
-        $elem->appendChild($dom->createElement('postcode', $postcode));
-        $elem->appendChild($dom->createElement('city', $city));
-        $elem->appendChild($dom->createElement('sp', $sp));
-        $elem->appendChild($dom->createElement('country', $country));
-        $elem->appendChild($dom->createElement('email', $email));
-
-        return $this->sendIntOrVoidResponse($dom, 'partner/contactUpdate', 'partner/contactUpdate/actionId');
+            break;
+        default:
+            throw new HRDApiIncorrectDataException('invalid type');
     }
+    $elem->appendChild($dom->createElement('name', $name));
+    $elem->appendChild($dom->createElement('voice', $voice));
+    if ($fax) {
+        $elem->appendChild($dom->createElement('fax', $fax));
+    }
+    $elem->appendChild($dom->createElement('street', $street));
+    $elem->appendChild($dom->createElement('postcode', $postcode));
+    $elem->appendChild($dom->createElement('city', $city));
+    $elem->appendChild($dom->createElement('sp', $sp));
+    $elem->appendChild($dom->createElement('country', $country));
+    $elem->appendChild($dom->createElement('email', $email));
 
-    /**
-     * @param int $contactId
-     * @return bool|null
-     */
-    public function partnerContactDelete(int $contactId)
-    {
+    return $this->sendIntResponse($dom, 'partner/contactCreate/contactId');
+}
+
+/**
+ * @param int $contactId
+ * @param string|null $org
+ * @param string $name
+ * @param string $voice
+ * @param string $fax
+ * @param string $street
+ * @param string $postcode
+ * @param string $city
+ * @param string $sp
+ * @param string $country
+ * @param string $email
+ * @return bool
+ */
+public function partnerContactUpdate(
+    int $contactId,
+    string $org = null,
+    string $name,
+    string $voice,
+    string $fax = null,
+    string $street,
+    string $postcode,
+    string $city,
+    string $sp,
+    string $country,
+    string $email
+) {
         /* @var \DOMDocument $dom */
         /* @var \DOMElement $elem */
-        list($dom, $elem) = $this->getAPIDOMDocument('partner', 'contactDelete');
-        $elem->appendChild($dom->createElement('id', $contactId));
+    list($dom, $elem) = $this->getAPIDOMDocument('partner', 'contactUpdate');
 
-        return $this->sendIntOrVoidResponse($dom, 'partner/contactDelete', 'partner/contactDelete/actionId');
+    $elem->appendChild($dom->createElement('id', $contactId));
+
+    if ($org) {
+        $elem->appendChild($dom->createElement('org', $org));
     }
 
-    /**
-     * @param int $contactId
-     * @return array|bool
-     */
-    public function partnerContactInfo(int $contactId)
-    {
+    $elem->appendChild($dom->createElement('name', $name));
+    $elem->appendChild($dom->createElement('voice', $voice));
+    if ($fax) {
+        $elem->appendChild($dom->createElement('fax', $fax));
+    }
+
+    $elem->appendChild($dom->createElement('street', $street));
+    $elem->appendChild($dom->createElement('postcode', $postcode));
+    $elem->appendChild($dom->createElement('city', $city));
+    $elem->appendChild($dom->createElement('sp', $sp));
+    $elem->appendChild($dom->createElement('country', $country));
+    $elem->appendChild($dom->createElement('email', $email));
+
+    return $this->sendIntOrVoidResponse($dom, 'partner/contactUpdate', 'partner/contactUpdate/actionId');
+}
+
+/**
+ * @param int $contactId
+ * @return bool|null
+ */
+public function partnerContactDelete(int $contactId)
+{
         /* @var \DOMDocument $dom */
         /* @var \DOMElement $elem */
-        list($dom, $elem) = $this->getAPIDOMDocument('partner', 'contactInfo');
-        $elem->appendChild($dom->createElement('id', $contactId));
+    list($dom, $elem) = $this->getAPIDOMDocument('partner', 'contactDelete');
+    $elem->appendChild($dom->createElement('id', $contactId));
 
-        return $this->sendArrayResponse($dom, 'partner/contactInfo/*');
-    }
+    return $this->sendIntOrVoidResponse($dom, 'partner/contactDelete', 'partner/contactDelete/actionId');
+}
 
-    /**
-     * @param int $userId
-     * @param int|null $lastId
-     * @return \Generator
-     */
-    public function partnerContactList(int $userId = null, int $lastId = null)
-    {
+/**
+ * @param int $contactId
+ * @return array|bool
+ */
+public function partnerContactInfo(int $contactId)
+{
         /* @var \DOMDocument $dom */
         /* @var \DOMElement $elem */
-        list($dom, $elem) = $this->getAPIDOMDocument('partner', 'contactList');
-        if ($userId !== null) {
-            $elem->appendChild($dom->createElement('userId', $userId));
-        }
-        if ($lastId !== null) {
-            $elem->appendChild($dom->createElement('lastId', $lastId));
-        }
-        yield from $this->sendIntYieldResponse($dom, 'partner/contactList/id', 'partner/contactList');
-    }
+    list($dom, $elem) = $this->getAPIDOMDocument('partner', 'contactInfo');
+    $elem->appendChild($dom->createElement('id', $contactId));
 
+    return $this->sendArrayResponse($dom, 'partner/contactInfo/*');
+}
 
-    /**
-     * Dodaje rekord secDNS dla wskazanej domeny
-     * @param $domain
-     * @param $alg
-     * @param $digestType
-     * @param $digest
-     * @param $key
-     * @return int
-     */
-    public function domainDnsSecAdd($domain,$alg, $digestType, $digest, $key)
-    {
-        list($dom, $elem) = $this->getAPIDOMDocument('domain', 'dnssecAdd');
-        $elem->appendChild($dom->createElement('name', $domain));
-        $elem->appendChild($dom->createElement('alg', $alg));
-        $elem->appendChild($dom->createElement('digestType', $digestType));
-        $elem->appendChild($dom->createElement('digest', $digest));
-        if (in_array($key, ['zsk', 'ksk'])) {
-            $elem->appendChild($dom->createElement('keyType', $key));
-        } else
-        {
-            $elem->appendChild($dom->createElement('keyTag', $key));
-        }
-
-        return $this->sendIntResponse($dom, 'domain/dnssecAdd/actionId');
-    }
-
-
-    /**
-     * Usuwa wskazany rekord secDNS dla domeny
-     * @param $domain
-     * @param $alg
-     * @param $digestType
-     * @param $digest
-     * @param $key
-     * @return int
-     */
-    public function domainDnsSecDelete($domain,$alg, $digestType, $digest, $key)
-    {
-        list($dom, $elem) = $this->getAPIDOMDocument('domain', 'dnssecDelete');
-        $elem->appendChild($dom->createElement('name', $domain));
-        $elem->appendChild($dom->createElement('alg', $alg));
-        $elem->appendChild($dom->createElement('digestType', $digestType));
-        $elem->appendChild($dom->createElement('digest', $digest));
-        if (in_array($key, ['zsk', 'ksk'])) {
-            $elem->appendChild($dom->createElement('keyType', $key));
-        } else
-        {
-            $elem->appendChild($dom->createElement('keyTag', $key));
-        }
-
-        return $this->sendIntResponse($dom, 'domain/dnssecDelete/actionId');
-    }
-    
-    /**
-     * Create host
-     *
-     * @param string $name
-     * @param array $ip
-     * @return int
-     */
-    public function domainHostCreate(string $name, array $ip)
-    {
-        list($dom, $elem) = $this->getAPIDOMDocument('domain', 'hostCreate');
-        $elem->appendChild($dom->createElement('name', $this->idnToAscii($name)));
-
-        if (isset($ip['ipv4'])) {
-            foreach ($ip['ipv4'] as $ipv4) {
-                $elem->appendChild($dom->createElement('ipv4', $ipv4));
-            }
-        }
-        if (isset($ip['ipv6'])) {
-            foreach ($ip['ipv6'] as $ipv6) {
-                $elem->appendChild($dom->createElement('ipv6', $ipv6));
-            }
-        }
-
-        return $this->sendIntOrVoidResponse($dom, 'domain/hostCreate', 'domain/hostCreate/actionId');
-    }
-
-    /**
-     * Delete host
-     *
-     * @param string $name
-     * @return int
-     */
-    public function domainHostDelete(string $name)
-    {
-        list($dom, $elem) = $this->getAPIDOMDocument('domain', 'hostDelete');
-        $elem->appendChild($dom->createElement('name', $this->idnToAscii($name)));
-
-        return $this->sendIntOrVoidResponse($dom, 'domain/hostDelete', 'domain/hostDelete/actionId');
-    }
-
-    /**
-     * Funkcja służy do pobierania informacji o serwerze nazw - host, domena nadrzędna musi być obsługiwana przez konkretnego partnera
-     *
-     * @param string $name Host dla której chciałbyś informację
-     * @return array tablica w której są umieszczone informację o hoście dla której chciałbyś pobrać informacje
-     */
-    public function domainHostInfo(string $name)
-    {
+/**
+ * @param int $userId
+ * @param int|null $lastId
+ * @return \Generator
+ */
+public function partnerContactList(int $userId = null, int $lastId = null)
+{
         /* @var \DOMDocument $dom */
         /* @var \DOMElement $elem */
-        list($dom, $elem) = $this->getAPIDOMDocument('domain', 'hostInfo');
-        $elem->appendChild($dom->createElement('name', $this->idnToAscii($name)));
+    list($dom, $elem) = $this->getAPIDOMDocument('partner', 'contactList');
+    if ($userId !== null) {
+        $elem->appendChild($dom->createElement('userId', $userId));
+    }
+    if ($lastId !== null) {
+        $elem->appendChild($dom->createElement('lastId', $lastId));
+    }
+    yield from $this->sendIntYieldResponse($dom, 'partner/contactList/id', 'partner/contactList');
+}
 
-        return $this->sendArrayResponse($dom, 'domain/hostInfo/*');
+
+/**
+ * Dodaje rekord secDNS dla wskazanej domeny
+ * @param $domain
+ * @param $alg
+ * @param $digestType
+ * @param $digest
+ * @param $key
+ * @return int
+ */
+public function domainDnsSecAdd($domain, $alg, $digestType, $digest, $key)
+{
+    list($dom, $elem) = $this->getAPIDOMDocument('domain', 'dnssecAdd');
+    $elem->appendChild($dom->createElement('name', $domain));
+    $elem->appendChild($dom->createElement('alg', $alg));
+    $elem->appendChild($dom->createElement('digestType', $digestType));
+    $elem->appendChild($dom->createElement('digest', $digest));
+    if (in_array($key, ['zsk', 'ksk'])) {
+        $elem->appendChild($dom->createElement('keyType', $key));
+    } else {
+        $elem->appendChild($dom->createElement('keyTag', $key));
     }
 
-    /**
-     * Funkcja służy do pobierania listy hostów wybranego parntnera
-     *
-     * @param string $lastName nazwa ostatnio pobranego hosta
-     * @return array tablica w której są umieszczone informację o hoście dla której chciałbyś pobrać informacje
-     */
-    public function domainHostList(string $lastName = null)
-    {
+    return $this->sendIntResponse($dom, 'domain/dnssecAdd/actionId');
+}
+
+
+/**
+ * Usuwa wskazany rekord secDNS dla domeny
+ * @param $domain
+ * @param $alg
+ * @param $digestType
+ * @param $digest
+ * @param $key
+ * @return int
+ */
+public function domainDnsSecDelete($domain, $alg, $digestType, $digest, $key)
+{
+    list($dom, $elem) = $this->getAPIDOMDocument('domain', 'dnssecDelete');
+    $elem->appendChild($dom->createElement('name', $domain));
+    $elem->appendChild($dom->createElement('alg', $alg));
+    $elem->appendChild($dom->createElement('digestType', $digestType));
+    $elem->appendChild($dom->createElement('digest', $digest));
+    if (in_array($key, ['zsk', 'ksk'])) {
+        $elem->appendChild($dom->createElement('keyType', $key));
+    } else {
+        $elem->appendChild($dom->createElement('keyTag', $key));
+    }
+
+    return $this->sendIntResponse($dom, 'domain/dnssecDelete/actionId');
+}
+
+/**
+ * Create host
+ *
+ * @param string $name
+ * @param array $ip
+ * @return int
+ */
+public function domainHostCreate(string $name, array $ip)
+{
+    list($dom, $elem) = $this->getAPIDOMDocument('domain', 'hostCreate');
+    $elem->appendChild($dom->createElement('name', $this->idnToAscii($name)));
+
+    if (isset($ip['ipv4'])) {
+        foreach ($ip['ipv4'] as $ipv4) {
+            $elem->appendChild($dom->createElement('ipv4', $ipv4));
+        }
+    }
+    if (isset($ip['ipv6'])) {
+        foreach ($ip['ipv6'] as $ipv6) {
+            $elem->appendChild($dom->createElement('ipv6', $ipv6));
+        }
+    }
+
+    return $this->sendIntOrVoidResponse($dom, 'domain/hostCreate', 'domain/hostCreate/actionId');
+}
+
+/**
+ * Delete host
+ *
+ * @param string $name
+ * @return int
+ */
+public function domainHostDelete(string $name)
+{
+    list($dom, $elem) = $this->getAPIDOMDocument('domain', 'hostDelete');
+    $elem->appendChild($dom->createElement('name', $this->idnToAscii($name)));
+
+    return $this->sendIntOrVoidResponse($dom, 'domain/hostDelete', 'domain/hostDelete/actionId');
+}
+
+/**
+ * Funkcja służy do pobierania informacji o serwerze nazw - host, domena nadrzędna musi być obsługiwana przez konkretnego partnera
+ *
+ * @param string $name Host dla której chciałbyś informację
+ * @return array tablica w której są umieszczone informację o hoście dla której chciałbyś pobrać informacje
+ */
+public function domainHostInfo(string $name)
+{
         /* @var \DOMDocument $dom */
         /* @var \DOMElement $elem */
-        list($dom, $elem) = $this->getAPIDOMDocument('domain', 'hostList');
-        if ($lastName !== null) {
-            $elem->appendChild($dom->createElement('lastName', $this->idnToAscii($lastName)));
-        }
-        yield from $this->sendStringYieldResponse($dom, 'domain/hostList/name', 'domain/hostList');
-    }
+    list($dom, $elem) = $this->getAPIDOMDocument('domain', 'hostInfo');
+    $elem->appendChild($dom->createElement('name', $this->idnToAscii($name)));
 
-    /**
-     * Funkcja służy do sprawdzenia czy  podany kod authInfo jest prawidłowy (dla domen .pl i .eu)
-     * @param string $domainName - nazwa domeny
-     * @param string $authInfo - kod authInfo
-     *
-     * @return bool true jeżeli kod authinfo jest poprawny, false - w przypadku nieprawidłowej weryfikacji
-     */
-    public function domainValidateAuthInfo(string $domainName, string $authInfo)
-    {
-        list($dom, $elem) = $this->getAPIDOMDocument('domain', 'authInfoCheck');
-        $elem->appendChild($dom->createElement('name', $this->idnToAscii($domainName)));
-        $elem->appendChild($dom->createElement('authInfo', (string)$authInfo));
+    return $this->sendArrayResponse($dom, 'domain/hostInfo/*');
+}
 
-        $response = $this->sendStringResponse($dom, 'domain/authInfoCheck/valid');
-        return filter_var($response,FILTER_VALIDATE_BOOLEAN,FILTER_NULL_ON_FAILURE);
+/**
+ * Funkcja służy do pobierania listy hostów wybranego parntnera
+ *
+ * @param string $lastName nazwa ostatnio pobranego hosta
+ * @return array tablica w której są umieszczone informację o hoście dla której chciałbyś pobrać informacje
+ */
+public function domainHostList(string $lastName = null)
+{
+        /* @var \DOMDocument $dom */
+        /* @var \DOMElement $elem */
+    list($dom, $elem) = $this->getAPIDOMDocument('domain', 'hostList');
+    if ($lastName !== null) {
+        $elem->appendChild($dom->createElement('lastName', $this->idnToAscii($lastName)));
     }
+    yield from $this->sendStringYieldResponse($dom, 'domain/hostList/name', 'domain/hostList');
+}
 
-    protected function idnToAscii($name)
-    {
-        return idn_to_ascii($name, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
-    }
+/**
+ * Funkcja służy do sprawdzenia czy  podany kod authInfo jest prawidłowy (dla domen .pl i .eu)
+ * @param string $domainName - nazwa domeny
+ * @param string $authInfo - kod authInfo
+ *
+ * @return bool true jeżeli kod authinfo jest poprawny, false - w przypadku nieprawidłowej weryfikacji
+ */
+public function domainValidateAuthInfo(string $domainName, string $authInfo)
+{
+    list($dom, $elem) = $this->getAPIDOMDocument('domain', 'authInfoCheck');
+    $elem->appendChild($dom->createElement('name', $this->idnToAscii($domainName)));
+    $elem->appendChild($dom->createElement('authInfo', (string)$authInfo));
 
-    protected function idnToUtf8($name)
-    {
-        return idn_to_utf8($name, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
-    }
+    $response = $this->sendStringResponse($dom, 'domain/authInfoCheck/valid');
+    return filter_var($response, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+}
+
+protected function idnToAscii($name)
+{
+    return idn_to_ascii($name, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
+}
+
+protected function idnToUtf8($name)
+{
+    return idn_to_utf8($name, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
+}
 }
 
