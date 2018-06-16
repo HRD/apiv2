@@ -1,0 +1,20 @@
+{
+    "name": "hrdbase/api",
+    "description": "HRD.pl Api v2",
+    "keywords": [
+        "hrd",
+        "api",
+        "domain"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "HRDBase\\Api\\": "src"
+        },
+    }
+}
