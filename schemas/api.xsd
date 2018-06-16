@@ -1,0 +1,1473 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema targetNamespace="http://api.hrd.pl/api/"
+        elementFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hrd="http://api.hrd.pl/api/"
+        xmlns:Q1="http://api.hrd.pl/api/">
+    <element name="api" type="hrd:apiType"></element>
+
+    <group name="apiTypes">
+        <choice>
+            <element name="token" type="hrd:tokenType"></element>
+            <element name="login" type="hrd:loginType"></element>
+            <element name="poll" type="hrd:pollType"></element>
+            <element name="action" type="hrd:actionType"></element>
+            <element name="partner" type="hrd:partnerType"></element>
+            <element name="news" type="hrd:newsType"></element>
+            <element name="user" type="hrd:userType"></element>
+            <element name="domain" type="hrd:domainType"></element>
+            <element name="cert" type="hrd:certType"></element>
+        </choice>
+    </group>
+
+    <group name="pollTypes">
+        <choice>
+            <element name="get" type="hrd:emptyTagType"></element>
+            <element name="ack" type="hrd:pollAckType"></element>
+        </choice>
+    </group>
+
+    <group name="actionTypes">
+        <choice>
+            <element name="info" type="hrd:actionIdType"></element>
+            <element name="list" type="hrd:actionListType"></element>
+        </choice>
+    </group>
+
+    <group name="partnerTypes">
+        <choice>
+            <element name="getBalance" type="hrd:emptyTagType"></element>
+            <element name="getPricings" type="hrd:emptyTagType"></element>
+            <element name="getPricingsList" type="hrd:emptyTagType"></element>
+            <element name="getPricingInfo" type="hrd:pricingInfoType"></element>
+            <element name="resendTradeMail" type="hrd:partnerResendTradeMailType"></element>
+            <element name="getKeys" type="hrd:emptyTagType"></element>
+            <element name="setKey" type="hrd:partnerSetKeyType"></element>
+            <element name="contactCreate" type="hrd:contactCreateType"></element>
+            <element name="contactUpdate" type="hrd:contactUpdateType"></element>
+            <element name="contactDelete" type="hrd:contactIdType"></element>
+            <element name="contactInfo" type="hrd:contactIdType"></element>
+            <element name="contactList" type="hrd:contactListType"></element>
+        </choice>
+    </group>
+
+    <group name="newsTypes">
+        <choice>
+            <element name="info" type="hrd:newsInfoType"></element>
+            <element name="list" type="hrd:newsListType"></element>
+        </choice>
+    </group>
+
+    <group name="userTypes">
+        <choice>
+            <element name="info" type="hrd:userIdType"></element>
+            <element name="create" type="hrd:userCreateType"></element>
+            <element name="update" type="hrd:userUpdateType"></element>
+            <element name="list" type="hrd:userListType"></element>
+        </choice>
+    </group>
+
+    <group name="domainTypes">
+        <choice>
+            <element name="authInfoCheck" type="hrd:domainAuthInfoCheckType"></element>
+            <element name="check" type="hrd:domainCheck">
+                <unique name="domainNameUnique">
+                    <selector xpath="./name"></selector>
+                    <field xpath="."></field>
+                </unique>
+            </element>
+            <element name="info" type="hrd:domainNameType"></element>
+            <element name="book" type="hrd:domainBookType"></element>
+            <element name="create" type="hrd:domainCreateType"></element>
+            <element name="transfer" type="hrd:domainTransferType"></element>
+            <element name="transferStatus" type="hrd:actionIdType"></element>
+            <element name="trade" type="hrd:domainTradeType"></element>
+            <element name="tradeAssignorCancel" type="hrd:actionConfirmCancelType"></element>
+            <element name="tradeAssigneeCancel" type="hrd:actionConfirmCancelType"></element>
+            <element name="renew" type="hrd:domainRenewType"></element>
+            <element name="update" type="hrd:domainUpdateType"></element>
+            <element name="list" type="hrd:domainListType"></element>
+            <element name="privacySet" type="hrd:domainPrivacySetType"></element>
+            <element name="nsGroupInfo" type="hrd:domainNsGroupInfoType"></element>
+            <element name="nsGroupCreate" type="hrd:domainNsGroupCreateType">
+                <unique name="nsGroupCreateUniqueName">
+                    <selector xpath="./ns/name"></selector>
+                    <field xpath="."></field>
+                </unique>
+            </element>
+            <element name="nsGroupUpdate" type="hrd:domainNsGroupUpdateType">
+                <unique name="nsGroupUpdateUniqueName">
+                    <selector xpath="./ns/name"></selector>
+                    <field xpath="."></field>
+                </unique>
+            </element>
+            <element name="nsGroupDelete" type="hrd:domainNsGroupInfoType"></element>
+            <element name="nsGroupList" type="hrd:domainNsGroupListType"></element>
+            <element name="whois" type="hrd:domainNameType"></element>
+            <element name="contactList" type="hrd:domainNameType"></element>
+            <element name="contactSet" type="hrd:domainContactSetType"></element>
+            <element name="tradeGetPw" type="hrd:domainNameType"></element>
+            <element name="tradeInnerGetPw" type="hrd:domainNameType"></element>
+            <element name="tradeStatus" type="hrd:actionIdType"></element>
+            <element name="tradePayerConfirm" type="hrd:actionIdType"></element>
+            <element name="futureCheck" type="hrd:domainCheck">
+                <unique name="domainFutureNameUnique">
+                    <selector xpath="./name"></selector>
+                    <field xpath="."></field>
+                </unique>
+            </element>
+            <element name="futureCreate" type="hrd:domainFutureCreateType"></element>
+            <element name="futureList" type="hrd:domainListType"></element>
+            <element name="futureInfo" type="hrd:domainNameType"></element>
+            <element name="futureRenew" type="hrd:domainFutureRenewType"></element>
+            <element name="dnsInfo" type="hrd:domainNameType"></element>
+            <element name="dnsChange" type="hrd:domainDnsChangeType"></element>
+            <element name="dnssecAdd" type="hrd:domainDnsSecType"></element>
+            <element name="dnssecDelete" type="hrd:domainDnsSecType"></element>
+            <element name="hostCreate" type="hrd:domainHostCreateType"></element>
+            <element name="hostDelete" type="hrd:domainNameType"></element>
+            <element name="hostInfo" type="hrd:domainNameType"></element>
+            <element name="hostList" type="hrd:domainListType"></element>
+        </choice>
+    </group>
+
+    <group name="certTypes">
+        <choice>
+            <element name="info" type="hrd:certInfoType"></element>
+            <element name="create" type="hrd:certCreateType"></element>
+            <element name="renew" type="hrd:certRenewType"></element>
+            <element name="list" type="hrd:certListType"></element>
+            <element name="get" type="hrd:certInfoType"></element>
+            <element name="contactInfo" type="hrd:certContactInfoType"></element>
+            <element name="contactList" type="hrd:certContactListType"></element>
+        </choice>
+    </group>
+
+    <complexType name="apiType">
+        <sequence>
+            <choice>
+                <group ref="hrd:apiTypes" />
+            </choice>
+            <element name="id" minOccurs="0" maxOccurs="1" type="hrd:idType"></element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="idType">
+        <restriction base="string">
+            <minLength value="1"></minLength>
+            <maxLength value="255"></maxLength>
+            <pattern value="[A-Za-z0-9]+"></pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="dateType">
+        <restriction base="string">
+            <pattern value="\d{4}-\d{2}-\d{2}"></pattern>
+        </restriction>
+    </simpleType>
+
+    <complexType name="emptyTagType"></complexType>
+
+    <simpleType name="domainNameSimpleType">
+        <restriction base="string">
+            <minLength value="3"></minLength>
+            <maxLength value="255"></maxLength>
+            <pattern
+                value="(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))(\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9])))*\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="domainDnsNameSimpleType"> <!-- same as domainNameSimpleType but with "." at end -->
+        <restriction base="string">
+            <minLength value="4"></minLength>
+            <maxLength value="255"></maxLength>
+            <pattern
+                value="(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))(\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9])))*\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))\.">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <complexType name="domainDnsSecType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="alg" type="unsignedInt"></element>
+            <element name="digestType" type="unsignedInt"></element>
+            <element name="digest" type="hrd:dnssecDigestType"></element>
+            <choice>
+                <element name="keyTag" type="unsignedInt"></element>
+                <element name="keyType" type="hrd:dnssecKeyType"></element>
+            </choice>
+        </sequence>
+    </complexType>
+    
+    <simpleType name="dnssecDigestType">
+        <restriction base="string">
+            <minLength value="40"></minLength>
+            <maxLength value="4096"></maxLength>
+        </restriction>
+    </simpleType>
+    
+    <simpleType name="dnssecKeyType">
+        <restriction base="string">
+            <enumeration value="zsk"></enumeration>
+            <enumeration value="ksk"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <complexType name="periodType">
+        <simpleContent>
+            <extension base="unsignedShort">
+                <attribute name="unit" default="y">
+                    <simpleType>
+                        <restriction base="string">
+                            <enumeration value="y"></enumeration>
+                            <enumeration value="m"></enumeration>
+                            <enumeration value="d"></enumeration>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </simpleContent>
+    </complexType>
+
+    <complexType name="nsOrGroupType">
+        <choice>
+            <element name="group" type="unsignedInt"></element>
+            <element name="ns">
+                <complexType>
+                    <sequence>
+                        <element name="ns" minOccurs="2" maxOccurs="16">
+                            <complexType>
+                                <sequence>
+                                    <element name="name" type="hrd:domainNameSimpleType"></element>
+                                    <choice minOccurs="0" maxOccurs="10">
+                                        <element name="ipv4" type="hrd:ipv4Type"></element>
+                                        <element name="ipv6" type="hrd:ipv6Type"></element>
+                                    </choice>
+                                </sequence>
+                            </complexType>
+                            <unique name="nsIpUnique">
+                                <selector xpath="./ipv4 | ./ipv6"></selector>
+                                <field xpath="."></field>
+                            </unique>
+                        </element>
+                    </sequence>
+                </complexType>
+                <unique name="nsNameUnique">
+                    <selector xpath="./ns/name"></selector>
+                    <field xpath="."></field>
+                </unique>
+            </element>
+        </choice>
+    </complexType>
+
+    <simpleType name="ipv4Type">
+        <restriction base="string">
+            <minLength value="7"></minLength>
+            <maxLength value="15"></maxLength>
+            <pattern
+                value="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="ipv6Type">
+        <restriction base="string">
+            <pattern
+                value="([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <complexType name="domainSE_NUAdditionalDataType">
+        <choice>
+            <sequence>
+                <element name="individual" type="hrd:emptyTagType"></element>
+                <element name="id" type="string"></element>
+            </sequence>
+            <sequence>
+                <element name="organization" type="hrd:emptyTagType"></element>
+                <element name="vat" type="string"></element>
+                <element name="registrationNumber" type="string"></element>
+            </sequence>
+        </choice>
+    </complexType>
+
+    <complexType name="domainROAdditionalDataType">
+        <sequence>
+            <element name="id" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainPM_RE_TF_WF_YTAdditionalDataType">
+        <choice>
+            <sequence>
+                <element name="individual" type="hrd:emptyTagType"></element>
+                <element name="countryOfBirth" type="hrd:countryType"></element>
+                <element name="dateOfBirth" type="hrd:dateType"></element>
+                <element name="cityOfBirth" type="string"></element>
+                <element name="postalCodeOfBirth" type="string"></element>
+                <element name="provinceOfBirth" type="string"></element>
+            </sequence>
+            <sequence>
+                <element name="organization" type="hrd:emptyTagType"></element>
+                <element name="vat" type="string" minOccurs="0"></element>
+                <element name="registrationNumber" type="string" minOccurs="0"></element>
+                <element name="trademarkNumber" type="string" minOccurs="0"></element>
+            </sequence>
+        </choice>
+    </complexType>
+
+    <complexType name="domainLVAdditionalDataType">
+        <choice>
+            <sequence>
+                <element name="individual" type="hrd:emptyTagType"></element>
+                <element name="id" type="string"></element>
+            </sequence>
+            <sequence>
+                <element name="organization" type="hrd:emptyTagType"></element>
+                <element name="registrationNumber" type="string"></element>
+                <element name="vat" type="string"></element>
+            </sequence>
+        </choice>
+    </complexType>
+
+    <complexType name="domainHUAdditionalDataType">
+        <choice>
+            <sequence>
+                <element name="individual" type="hrd:emptyTagType"></element>
+                <element name="id" type="string"></element>
+            </sequence>
+            <sequence>
+                <element name="organization" type="hrd:emptyTagType"></element>
+                <element name="vat" type="string"></element>
+            </sequence>
+        </choice>
+    </complexType>
+
+    <complexType name="domainIndividualOrOrganizationAdditionalDataType">
+        <sequence>
+            <element name="type">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="individual"></enumeration>
+                        <enumeration value="organization"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainAdditionalDataType">
+        <choice>
+            <element name="fr">
+                <complexType>
+                    <sequence>
+                        <element name="registrantType">
+                            <simpleType>
+                                <restriction base="string">
+                                    <enumeration value="individual"></enumeration>
+                                    <enumeration value="organization"></enumeration>
+                                </restriction>
+                            </simpleType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="it">
+                <complexType>
+                    <sequence>
+                        <element name="entityType">
+                            <simpleType>
+                                <restriction base="string">
+                                    <enumeration value="1"></enumeration>
+                                    <enumeration value="2"></enumeration>
+                                    <enumeration value="3"></enumeration>
+                                    <enumeration value="4"></enumeration>
+                                    <enumeration value="5"></enumeration>
+                                    <enumeration value="6"></enumeration>
+                                    <enumeration value="7"></enumeration>
+                                </restriction>
+                            </simpleType>
+                        </element>
+                        <element name="regCode" type="string"></element>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="us">
+                <complexType>
+                    <sequence>
+                        <element name="category">
+                         <simpleType>
+                            <restriction base="string">
+                                <enumeration value="C11"></enumeration>
+                                <enumeration value="C12"></enumeration>
+                                <enumeration value="C21"></enumeration>
+                                <enumeration value="C31"></enumeration>
+                                <enumeration value="C32"></enumeration>
+                            </restriction>
+                         </simpleType>
+                        </element>
+                        <element name="purpose">
+                            <simpleType>
+                                <restriction base="string">
+                                    <enumeration value="P1"></enumeration>
+                                    <enumeration value="P2"></enumeration>
+                                    <enumeration value="P3"></enumeration>
+                                    <enumeration value="P4"></enumeration>
+                                    <enumeration value="P5"></enumeration>
+                                </restriction>
+                            </simpleType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="ca">
+                <complexType>
+                    <sequence>
+                        <element name="type">
+                            <simpleType>
+                                <restriction base="string">
+                                    <enumeration value="CCT"></enumeration>
+                                    <enumeration value="RES"></enumeration>
+                                    <enumeration value="ABO"></enumeration>
+                                    <enumeration value="LGR"></enumeration>
+                                    <enumeration value="CCO"></enumeration>
+                                    <enumeration value="GOV"></enumeration>
+                                    <enumeration value="EDU"></enumeration>
+                                    <enumeration value="ASS"></enumeration>
+                                    <enumeration value="HOP"></enumeration>
+                                    <enumeration value="PRT"></enumeration>
+                                    <enumeration value="TDM"></enumeration>
+                                    <enumeration value="TRD"></enumeration>
+                                    <enumeration value="PLT"></enumeration>
+                                    <enumeration value="LAM"></enumeration>
+                                    <enumeration value="TRS"></enumeration>
+                                    <enumeration value="INB"></enumeration>
+                                    <enumeration value="OMK"></enumeration>
+                                    <enumeration value="MAJ"></enumeration>
+                                </restriction>
+                            </simpleType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="es">
+                <complexType>
+                    <sequence>
+                        <element name="legalForm">
+                            <simpleType>
+                                <restriction base="string">
+                                    <enumeration value="1"></enumeration>
+                                    <enumeration value="39"></enumeration>
+                                    <enumeration value="47"></enumeration>
+                                    <enumeration value="59"></enumeration>
+                                    <enumeration value="68"></enumeration>
+                                    <enumeration value="124"></enumeration>
+                                    <enumeration value="150"></enumeration>
+                                    <enumeration value="152"></enumeration>
+                                    <enumeration value="164"></enumeration>
+                                    <enumeration value="181"></enumeration>
+                                    <enumeration value="197"></enumeration>
+                                    <enumeration value="203"></enumeration>
+                                    <enumeration value="229"></enumeration>
+                                    <enumeration value="269"></enumeration>
+                                    <enumeration value="286"></enumeration>
+                                    <enumeration value="365"></enumeration>
+                                    <enumeration value="434"></enumeration>
+                                    <enumeration value="436"></enumeration>
+                                    <enumeration value="439"></enumeration>
+                                    <enumeration value="476"></enumeration>
+                                    <enumeration value="510"></enumeration>
+                                    <enumeration value="524"></enumeration>
+                                    <enumeration value="525"></enumeration>
+                                    <enumeration value="554"></enumeration>
+                                    <enumeration value="560"></enumeration>
+                                    <enumeration value="562"></enumeration>
+                                    <enumeration value="566"></enumeration>
+                                    <enumeration value="608"></enumeration>
+                                    <enumeration value="612"></enumeration>
+                                    <enumeration value="713"></enumeration>
+                                    <enumeration value="717"></enumeration>
+                                    <enumeration value="744"></enumeration>
+                                    <enumeration value="746"></enumeration>
+                                    <enumeration value="747"></enumeration>
+                                    <enumeration value="877"></enumeration>
+                                    <enumeration value="878"></enumeration>
+                                    <enumeration value="879"></enumeration>
+                                </restriction>
+                            </simpleType>
+                        </element>
+                        <element name="documentId" type="string"></element>
+                    </sequence>
+                </complexType>
+            </element>
+        </choice>
+    </complexType>
+
+    <complexType name="tokenType">
+        <sequence>
+            <element name="token">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="1"></minLength>
+                        <maxLength value="255"></maxLength>
+                        <pattern value="[A-Za-z0-9\+/=]+"></pattern>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="loginType">
+        <sequence>
+            <element name="login">
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="32"></maxLength>
+                        <minLength value="1"></minLength>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="pass" type="hrd:String1_255Type"></element>
+            <element name="type">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="partnerApi"></enumeration>
+                        <enumeration value="partner"></enumeration>
+                        <enumeration value="special"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainType">
+        <choice>
+            <group ref="hrd:domainTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="domainCheck">
+        <sequence>
+            <element name="name" minOccurs="1" maxOccurs="100"
+                     type="hrd:domainNameSimpleType">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainFutureCreateType">
+        <all>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="user" type="unsignedInt"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainFutureRenewType">
+        <all>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="currentExpirationDate" type="hrd:dateType"></element>
+        </all>
+    </complexType>
+
+    <complexType name="actionIdType">
+        <all>
+            <element name="id" type="unsignedInt"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainNameType">
+        <all>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainCreateType">
+        <all>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="user" type="unsignedInt"></element>
+            <element name="period" type="hrd:periodType"></element>
+            <element name="privacyProtect" type="hrd:boolean"></element>
+            <element name="ns" type="hrd:nsOrGroupType"></element>
+            <element name="additionalData" type="hrd:domainAdditionalDataType"
+                     minOccurs="0">
+            </element>
+        </all>
+    </complexType>
+
+    <complexType name="domainTransferType">
+        <all>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="user" type="unsignedInt"></element>
+            <element name="period" type="hrd:periodType" minOccurs="0"></element>
+            <element name="pw" type="string"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainTradeType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="user" type="unsignedInt"></element>
+            <element name="pw" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainRenewType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="currentExpirationDate" type="hrd:dateType"></element>
+            <element name="period" type="hrd:periodType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainUpdateType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="ns" type="hrd:nsOrGroupType" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainListType">
+        <sequence>
+            <element name="lastName" type="hrd:domainNameSimpleType"
+                     minOccurs="0">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainPrivacySetType">
+        <all>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="privacy" type="hrd:boolean"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainNsGroupInfoType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainNsGroupCreateType">
+        <sequence>
+            <element name="name" type="hrd:String1_255Type"></element>
+            <element name="ns" type="hrd:nsWithoutIpType" minOccurs="2" maxOccurs="16"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainNsGroupUpdateType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+            <element name="name" type="hrd:String1_255Type" minOccurs="0"></element>
+            <choice minOccurs="1" maxOccurs="1">
+                <sequence>
+                </sequence>
+                <sequence>
+                    <element name="ns" type="hrd:nsWithoutIpType" minOccurs="2" maxOccurs="16"></element>
+                </sequence>
+            </choice>
+        </sequence>
+    </complexType>
+
+    <complexType name="nsWithoutIpType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainNsGroupListType">
+        <sequence>
+            <element name="lastId" type="unsignedInt" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainContactSetType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="tech">
+                <complexType>
+                    <sequence>
+                        <element name="contactId" type="unsignedInt" minOccurs="0"></element>
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainDnsChangeType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="rrset" minOccurs="1" maxOccurs="100" type="hrd:domainDnsRRSetType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainDnsRRSetType">
+        <sequence>
+            <element name="name" type="hrd:domainDnsNameSimpleType"></element>
+            <element name="type">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="A"></enumeration>
+                        <enumeration value="AAAA"></enumeration>
+                        <enumeration value="CNAME"></enumeration>
+                        <enumeration value="MX"></enumeration>
+                        <enumeration value="PTR"></enumeration>
+                        <enumeration value="NS"></enumeration>
+                        <enumeration value="SOA"></enumeration>
+                        <enumeration value="SRV"></enumeration>
+                        <enumeration value="TXT"></enumeration>
+                        <enumeration value="NAPTR"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="ttl" type="unsignedInt" minOccurs="0"></element>
+            <element name="changetype">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="REPLACE"></enumeration>
+                        <enumeration value="DELETE"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="record" minOccurs="0" maxOccurs="100" type="hrd:domainDnsRRSetRecordType"></element>
+            <element name="comment" minOccurs="0" maxOccurs="100" type="hrd:domainDnsRRSetCommentType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainDnsRRSetRecordType">
+        <all>
+            <element name="content" type="hrd:String1_255Type"></element>
+            <element name="disabled" type="hrd:boolean"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainDnsRRSetCommentType">
+        <all>
+            <element name="content" type="hrd:String1_255Type"></element>
+            <element name="account" type="hrd:String1_255Type"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainHostCreateType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <choice minOccurs="1" maxOccurs="10">
+                <element name="ipv4" type="hrd:ipv4Type"></element>
+                <element name="ipv6" type="hrd:ipv6Type"></element>
+            </choice>
+        </sequence>
+    </complexType>
+
+    <complexType name="partnerType">
+        <choice>
+            <group ref="hrd:partnerTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="pricingInfoType">
+        <sequence>
+            <element name="name" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="contactCreateType">
+        <sequence>
+            <element name="userId" type="unsignedInt" minOccurs="0"></element>
+            <choice>
+                <element name="personType" type="hrd:emptyTagType"></element>
+                <element name="companyType" type="hrd:emptyTagType"></element>
+            </choice>
+            <element name="org" type="hrd:String1_255Type" minOccurs="0"></element>
+            <element name="name" type="hrd:String1_255Type"></element>
+            <element name="voice" type="hrd:landlineOrMobilePhoneType"></element>
+            <element name="fax" type="hrd:landlinePhoneType" minOccurs="0"></element>
+            <element name="street" type="hrd:String1_255Type"></element>
+            <element name="postcode" type="hrd:String3_16Type"></element>
+            <element name="city" type="hrd:String1_128Type"></element>
+            <element name="sp" type="hrd:String1_128Type"></element>
+            <element name="country" type="hrd:countryType"></element>
+            <element name="email" type="hrd:emailType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="partnerSetKeyType">
+        <all>
+            <element name="key" type="hrd:String1_255Type"></element>
+            <element name="value" type="hrd:String1_255Type"></element>
+        </all>
+    </complexType>
+    
+    <complexType name="partnerResendTradeMailType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+            <element name="assignor" type="unsignedInt" minOccurs="0"></element>
+            <element name="assignee" type="unsignedInt" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="contactUpdateType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+            <element name="org" type="hrd:String1_255Type" minOccurs="0"></element>
+            <element name="name" type="hrd:String1_255Type"></element>
+            <element name="voice" type="hrd:landlineOrMobilePhoneType"></element>
+            <element name="fax" type="hrd:landlinePhoneType" minOccurs="0"></element>
+            <element name="street" type="hrd:String1_255Type"></element>
+            <element name="postcode" type="hrd:String3_16Type"></element>
+            <element name="city" type="hrd:String1_128Type"></element>
+            <element name="sp" type="hrd:String1_128Type"></element>
+            <element name="country" type="hrd:countryType"></element>
+            <element name="email" type="hrd:emailType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="contactIdType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="contactListType">
+        <sequence>
+            <element name="userId" type="unsignedInt" minOccurs="0"></element>
+            <element name="lastId" type="unsignedInt" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="newsType">
+        <choice>
+            <group ref="hrd:newsTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="newsInfoType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="newsListType">
+        <sequence>
+            <element name="lastId" type="unsignedInt" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="userType">
+        <choice>
+            <group ref="hrd:userTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="userIdType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="userCreateType">
+        <sequence>
+            <choice>
+                <sequence>
+                    <element name="personType" type="hrd:emptyTagType">
+                    </element>
+                </sequence>
+                <sequence>
+                    <element name="companyType" type="hrd:emptyTagType">
+                    </element>
+                    <element name="representative" type="hrd:String3_255Type"></element>
+                </sequence>
+            </choice>
+            <element name="idNumber" type="hrd:String1_255Type"></element>
+            <element name="email" type="hrd:emailType"></element>
+            <element name="mobilePhone" type="hrd:mobilePhoneType"
+                     minOccurs="0">
+            </element>
+            <element name="landlinePhone" type="hrd:landlineOrMobilePhoneType"></element>
+            <element name="fax" type="hrd:landlinePhoneType" minOccurs="0"></element>
+            <element name="name" type="hrd:String3_255Type"></element>
+            <element name="street" type="hrd:String3_255Type"></element>
+            <element name="postcode" type="hrd:String3_16Type"></element>
+            <element name="city" type="hrd:String1_128Type"></element>
+            <element name="country" type="hrd:countryType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="userUpdateType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+            <element name="mobilePhone" type="hrd:mobilePhoneType"
+                     minOccurs="0">
+            </element>
+            <element name="landlinePhone" type="hrd:landlineOrMobilePhoneType"
+                     minOccurs="0">
+            </element>
+            <element name="fax" type="hrd:landlinePhoneType" minOccurs="0"></element>
+            <element name="street" type="hrd:String3_255Type"></element>
+            <element name="postcode" type="hrd:String3_16Type"></element>
+            <element name="city" type="hrd:String1_255Type"></element>
+            <element name="country" type="hrd:countryType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="userListType">
+        <sequence>
+            <element name="lastId" type="unsignedInt" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="pollType">
+        <choice>
+            <group ref="hrd:pollTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="pollAckType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="actionType">
+        <choice>
+            <group ref="hrd:actionTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="actionListType">
+        <sequence>
+            <element name="lastId" type="unsignedInt" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="certType">
+        <choice>
+            <group ref="hrd:certTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="certInfoType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="certContactInfoType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="certContactListType">
+        <all>
+            <element name="lastId" type="unsignedInt" minOccurs="0"></element>
+        </all>
+    </complexType>
+
+    <complexType name="certCreateType">
+        <sequence>
+            <element name="product">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="Comodo Free Trial SSL"></enumeration>
+                        <enumeration value="Comodo SSL"></enumeration>
+                        <enumeration value="Comodo SSL + Wildcard"></enumeration>
+                        <enumeration value="Comodo EV SSL"></enumeration>
+                        <enumeration value="Instant SSL"></enumeration>
+                        <enumeration value="Positive SSL"></enumeration>
+                        <enumeration value="Positive SSL + Wildcard"></enumeration>
+                        <enumeration value="QuickSSL Basic"></enumeration>
+                        <enumeration value="QuickSSL Premium"></enumeration>
+                        <enumeration value="QuickSSL Premium Free Trial"></enumeration>
+                        <enumeration value="True BusinessID"></enumeration>
+                        <enumeration value="True BusinessID Wildcard"></enumeration>
+                        <enumeration value="True BusinessID + EV"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="approverEmail" type="hrd:emailType"></element>
+            <element name="csr" type="hrd:csrType"></element>
+            <choice>
+                <element name="adminContact" type="hrd:certAdminContactType"></element>
+                <element name="certContactId" type="unsignedInt"></element>
+            </choice>
+            <element name="insurance" type="hrd:boolean"></element>
+            <element name="userId" type="unsignedInt"></element>
+            <element name="period" type="hrd:periodType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="certRenewType">
+        <all>
+            <element name="id" type="unsignedInt"></element>
+            <element name="period" type="hrd:periodType"></element>
+            <element name="approverEmail" type="hrd:emailType" minOccurs="0"></element>
+            <element name="csr" type="hrd:csrType" minOccurs="0"></element>
+        </all>
+    </complexType>
+
+    <complexType name="certListType">
+        <all>
+            <element name="lastId" type="unsignedInt" minOccurs="0"></element>
+        </all>
+    </complexType>
+
+    <complexType name="certAdminContactType">
+        <all>
+            <element name="title">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="Mrs"></enumeration>
+                        <enumeration value="Mr"></enumeration>
+                        <enumeration value="Miss"></enumeration>
+                        <enumeration value="Ms"></enumeration>
+                        <enumeration value="Dr"></enumeration>
+                        <enumeration value="Rev"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="firstName" type="hrd:certString40Type"></element>
+            <element name="lastName" type="hrd:certString40Type"></element>
+            <element name="organization" type="hrd:certString40Type"></element>
+            <element name="taxId" minOccurs="0">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[a-zA-Z0-9\-]{1,20}"></pattern>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="role">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="Administration Staff"></enumeration>
+                        <enumeration value="Business Owner"></enumeration>
+                        <enumeration value="Chairman"></enumeration>
+                        <enumeration value="Company Director"></enumeration>
+                        <enumeration value="Company Executive"></enumeration>
+                        <enumeration value="Executive Officer"></enumeration>
+                        <enumeration value="Financial Officer"></enumeration>
+                        <enumeration value="General Manager"></enumeration>
+                        <enumeration value="Information Officer"></enumeration>
+                        <enumeration value="Managing Director"></enumeration>
+                        <enumeration value="Marketing Officer"></enumeration>
+                        <enumeration value="President"></enumeration>
+                        <enumeration value="Sales Officer"></enumeration>
+                        <enumeration value="Security Officer"></enumeration>
+                        <enumeration value="Senior Manager"></enumeration>
+                        <enumeration value="Technology Officer"></enumeration>
+                        <enumeration value="Web Officer"></enumeration>
+                        <enumeration value="Website Owner"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="email">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[a-zA-Z0-9\-_\.]+@[a-zA-Z0-9\-_\.]+">
+                        </pattern>
+                        <maxLength value="40"></maxLength>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="phoneCC">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[0-9]{1,6}">
+                        </pattern>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="phoneN">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[0-9]{1,15}">
+                        </pattern>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="address" type="hrd:certString200Type"></element>
+            <element name="address2" type="hrd:certString200Type" minOccurs="0">
+            </element>
+            <element name="city" type="hrd:certString40Type"></element>
+            <element name="state" type="hrd:certString40Type"></element>
+            <element name="postCode">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[a-zA-Z0-9\-_]{1,15}"></pattern>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="country" type="hrd:countryType"></element>
+        </all>
+    </complexType>
+
+    <simpleType name="certString40Type">
+        <restriction base="string">
+            <pattern value="[a-zA-Z0-9\-_\. ]{1,40}"></pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="certString200Type">
+        <restriction base="string">
+            <pattern value="[a-zA-Z0-9,\-_\. ]{1,200}"></pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="csrType">
+        <restriction base="string">
+            <maxLength value="3000"></maxLength>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="boolean">
+        <restriction base="string">
+            <enumeration value="true"></enumeration>
+            <enumeration value="false"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="emailType">
+        <restriction base="string">
+            <pattern value="[^\n\r\t ]+@[^\n\r\t ]+">
+            </pattern>
+            <maxLength value="255"></maxLength>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="landlinePhoneType">
+        <restriction base="string">
+            <maxLength value="30"></maxLength>
+            <pattern
+                value="((\+44\.[1235][0-9]{8,9})|(\+48\.(12|13|14|15|16|17|18|22|23|24|25|26|29|32|33|34|39|41|42|43|44|46|47|48|52|54|55|56|58|59|61|62|63|65|67|68|71|74|75|76|77|81|82|83|84|85|86|87|89|91|94|95)[0-9]{7})|(\+(1|2[07]|21[2368]|2[2346][0-9]|25[0-8]|29[01789]|3[0123469]|3[57][0-9]|38[012356789]|4[0135679]|42[013]|5[1-8]|5[09][0-9]|6[0-6]|67[023456789]|68[0-9]|69[0-2]|7|8[1246]|85[02356]|88[016]|9[0123459]|96[1-8]|97[0-7]|99[234568])\.[1-9][0-9]{1,}))">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="mobilePhoneType">
+        <restriction base="string">
+            <maxLength value="30"></maxLength>
+            <pattern
+                value="((\+44\.7([45789][0-9]{8}|624[0-9]{6}))|(\+48\.(50|51|53|57|60|66|69|72|73|78|79|88)[0-9]{7})|(\+(1|2[07]|21[2368]|2[2346][0-9]|25[0-8]|29[01789]|3[0123469]|3[57][0-9]|38[012356789]|4[0135679]|42[013]|5[1-8]|5[09][0-9]|6[0-6]|67[023456789]|68[0-9]|69[0-2]|7|8[1246]|85[02356]|88[016]|9[0123459]|96[1-8]|97[0-7]|99[234568])\.[1-9][0-9]{1,}))">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="landlineOrMobilePhoneType">
+        <restriction base="string">
+            <maxLength value="30"></maxLength>
+            <pattern
+                    value="((\+44\.[1235][0-9]{8,9})|(\+48\.(12|13|14|15|16|17|18|22|23|24|25|26|29|32|33|34|39|41|42|43|44|46|47|48|52|54|55|56|58|59|61|62|63|65|67|68|71|74|75|76|77|81|82|83|84|85|86|87|89|91|94|95)[0-9]{7})|(\+(1|2[07]|21[2368]|2[2346][0-9]|25[0-8]|29[01789]|3[0123469]|3[57][0-9]|38[012356789]|4[0135679]|42[013]|5[1-8]|5[09][0-9]|6[0-6]|67[023456789]|68[0-9]|69[0-2]|7|8[1246]|85[02356]|88[016]|9[0123459]|96[1-8]|97[0-7]|99[234568])\.[1-9][0-9]{1,}))">
+            </pattern>
+            <pattern
+                    value="((\+44\.7([45789][0-9]{8}|624[0-9]{6}))|(\+48\.(50|51|53|57|60|66|69|72|73|78|79|88)[0-9]{7})|(\+(1|2[07]|21[2368]|2[2346][0-9]|25[0-8]|29[01789]|3[0123469]|3[57][0-9]|38[012356789]|4[0135679]|42[013]|5[1-8]|5[09][0-9]|6[0-6]|67[023456789]|68[0-9]|69[0-2]|7|8[1246]|85[02356]|88[016]|9[0123459]|96[1-8]|97[0-7]|99[234568])\.[1-9][0-9]{1,}))">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="String1_255Type">
+        <restriction base="string">
+            <minLength value="1"></minLength>
+            <maxLength value="255"></maxLength>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="String3_255Type">
+        <restriction base="string">
+            <minLength value="3"></minLength>
+            <maxLength value="255"></maxLength>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="String1_128Type">
+        <restriction base="string">
+            <minLength value="1"></minLength>
+            <maxLength value="128"></maxLength>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="String0_16Type">
+        <restriction base="string">
+            <minLength value="0"></minLength>
+            <maxLength value="16"></maxLength>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="String3_16Type">
+        <restriction base="string">
+            <minLength value="3"></minLength>
+            <maxLength value="16"></maxLength>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="countryType">
+        <restriction base="string">
+            <enumeration value="AF"></enumeration>
+            <enumeration value="AX"></enumeration>
+            <enumeration value="AL"></enumeration>
+            <enumeration value="DZ"></enumeration>
+            <enumeration value="AS"></enumeration>
+            <enumeration value="AD"></enumeration>
+            <enumeration value="AO"></enumeration>
+            <enumeration value="AI"></enumeration>
+            <enumeration value="AQ"></enumeration>
+            <enumeration value="AG"></enumeration>
+            <enumeration value="AR"></enumeration>
+            <enumeration value="AM"></enumeration>
+            <enumeration value="AW"></enumeration>
+            <enumeration value="AU"></enumeration>
+            <enumeration value="AT"></enumeration>
+            <enumeration value="AZ"></enumeration>
+            <enumeration value="BS"></enumeration>
+            <enumeration value="BH"></enumeration>
+            <enumeration value="BD"></enumeration>
+            <enumeration value="BB"></enumeration>
+            <enumeration value="BY"></enumeration>
+            <enumeration value="BE"></enumeration>
+            <enumeration value="BZ"></enumeration>
+            <enumeration value="BJ"></enumeration>
+            <enumeration value="BM"></enumeration>
+            <enumeration value="BT"></enumeration>
+            <enumeration value="BO"></enumeration>
+            <enumeration value="BQ"></enumeration>
+            <enumeration value="BA"></enumeration>
+            <enumeration value="BW"></enumeration>
+            <enumeration value="BV"></enumeration>
+            <enumeration value="BR"></enumeration>
+            <enumeration value="IO"></enumeration>
+            <enumeration value="BN"></enumeration>
+            <enumeration value="BG"></enumeration>
+            <enumeration value="BF"></enumeration>
+            <enumeration value="BI"></enumeration>
+            <enumeration value="KH"></enumeration>
+            <enumeration value="CM"></enumeration>
+            <enumeration value="CA"></enumeration>
+            <enumeration value="CV"></enumeration>
+            <enumeration value="KY"></enumeration>
+            <enumeration value="CF"></enumeration>
+            <enumeration value="TD"></enumeration>
+            <enumeration value="CL"></enumeration>
+            <enumeration value="CN"></enumeration>
+            <enumeration value="CX"></enumeration>
+            <enumeration value="CC"></enumeration>
+            <enumeration value="CO"></enumeration>
+            <enumeration value="KM"></enumeration>
+            <enumeration value="CG"></enumeration>
+            <enumeration value="CD"></enumeration>
+            <enumeration value="CK"></enumeration>
+            <enumeration value="CR"></enumeration>
+            <enumeration value="CI"></enumeration>
+            <enumeration value="HR"></enumeration>
+            <enumeration value="CU"></enumeration>
+            <enumeration value="CW"></enumeration>
+            <enumeration value="CY"></enumeration>
+            <enumeration value="CZ"></enumeration>
+            <enumeration value="DK"></enumeration>
+            <enumeration value="DJ"></enumeration>
+            <enumeration value="DM"></enumeration>
+            <enumeration value="DO"></enumeration>
+            <enumeration value="EC"></enumeration>
+            <enumeration value="EG"></enumeration>
+            <enumeration value="SV"></enumeration>
+            <enumeration value="GQ"></enumeration>
+            <enumeration value="ER"></enumeration>
+            <enumeration value="EE"></enumeration>
+            <enumeration value="ET"></enumeration>
+            <enumeration value="FK"></enumeration>
+            <enumeration value="FO"></enumeration>
+            <enumeration value="FJ"></enumeration>
+            <enumeration value="FI"></enumeration>
+            <enumeration value="FR"></enumeration>
+            <enumeration value="GF"></enumeration>
+            <enumeration value="PF"></enumeration>
+            <enumeration value="TF"></enumeration>
+            <enumeration value="GA"></enumeration>
+            <enumeration value="GM"></enumeration>
+            <enumeration value="GE"></enumeration>
+            <enumeration value="DE"></enumeration>
+            <enumeration value="GH"></enumeration>
+            <enumeration value="GI"></enumeration>
+            <enumeration value="GR"></enumeration>
+            <enumeration value="GL"></enumeration>
+            <enumeration value="GD"></enumeration>
+            <enumeration value="GP"></enumeration>
+            <enumeration value="GU"></enumeration>
+            <enumeration value="GT"></enumeration>
+            <enumeration value="GG"></enumeration>
+            <enumeration value="GN"></enumeration>
+            <enumeration value="GW"></enumeration>
+            <enumeration value="GY"></enumeration>
+            <enumeration value="HT"></enumeration>
+            <enumeration value="HM"></enumeration>
+            <enumeration value="VA"></enumeration>
+            <enumeration value="HN"></enumeration>
+            <enumeration value="HK"></enumeration>
+            <enumeration value="HU"></enumeration>
+            <enumeration value="IS"></enumeration>
+            <enumeration value="IN"></enumeration>
+            <enumeration value="ID"></enumeration>
+            <enumeration value="IR"></enumeration>
+            <enumeration value="IQ"></enumeration>
+            <enumeration value="IE"></enumeration>
+            <enumeration value="IM"></enumeration>
+            <enumeration value="IL"></enumeration>
+            <enumeration value="IT"></enumeration>
+            <enumeration value="JM"></enumeration>
+            <enumeration value="JP"></enumeration>
+            <enumeration value="JE"></enumeration>
+            <enumeration value="JO"></enumeration>
+            <enumeration value="KZ"></enumeration>
+            <enumeration value="KE"></enumeration>
+            <enumeration value="KI"></enumeration>
+            <enumeration value="KP"></enumeration>
+            <enumeration value="KR"></enumeration>
+            <enumeration value="KW"></enumeration>
+            <enumeration value="KG"></enumeration>
+            <enumeration value="LA"></enumeration>
+            <enumeration value="LV"></enumeration>
+            <enumeration value="LB"></enumeration>
+            <enumeration value="LS"></enumeration>
+            <enumeration value="LR"></enumeration>
+            <enumeration value="LY"></enumeration>
+            <enumeration value="LI"></enumeration>
+            <enumeration value="LT"></enumeration>
+            <enumeration value="LU"></enumeration>
+            <enumeration value="MO"></enumeration>
+            <enumeration value="MK"></enumeration>
+            <enumeration value="MG"></enumeration>
+            <enumeration value="MW"></enumeration>
+            <enumeration value="MY"></enumeration>
+            <enumeration value="MV"></enumeration>
+            <enumeration value="ML"></enumeration>
+            <enumeration value="MT"></enumeration>
+            <enumeration value="MH"></enumeration>
+            <enumeration value="MQ"></enumeration>
+            <enumeration value="MR"></enumeration>
+            <enumeration value="MU"></enumeration>
+            <enumeration value="YT"></enumeration>
+            <enumeration value="MX"></enumeration>
+            <enumeration value="FM"></enumeration>
+            <enumeration value="MD"></enumeration>
+            <enumeration value="MC"></enumeration>
+            <enumeration value="MN"></enumeration>
+            <enumeration value="ME"></enumeration>
+            <enumeration value="MS"></enumeration>
+            <enumeration value="MA"></enumeration>
+            <enumeration value="MZ"></enumeration>
+            <enumeration value="MM"></enumeration>
+            <enumeration value="NA"></enumeration>
+            <enumeration value="NR"></enumeration>
+            <enumeration value="NP"></enumeration>
+            <enumeration value="NL"></enumeration>
+            <enumeration value="NC"></enumeration>
+            <enumeration value="NZ"></enumeration>
+            <enumeration value="NI"></enumeration>
+            <enumeration value="NE"></enumeration>
+            <enumeration value="NG"></enumeration>
+            <enumeration value="NU"></enumeration>
+            <enumeration value="NF"></enumeration>
+            <enumeration value="MP"></enumeration>
+            <enumeration value="NO"></enumeration>
+            <enumeration value="OM"></enumeration>
+            <enumeration value="PK"></enumeration>
+            <enumeration value="PW"></enumeration>
+            <enumeration value="PS"></enumeration>
+            <enumeration value="PA"></enumeration>
+            <enumeration value="PG"></enumeration>
+            <enumeration value="PY"></enumeration>
+            <enumeration value="PE"></enumeration>
+            <enumeration value="PH"></enumeration>
+            <enumeration value="PN"></enumeration>
+            <enumeration value="PL"></enumeration>
+            <enumeration value="PT"></enumeration>
+            <enumeration value="PR"></enumeration>
+            <enumeration value="QA"></enumeration>
+            <enumeration value="RE"></enumeration>
+            <enumeration value="RO"></enumeration>
+            <enumeration value="RU"></enumeration>
+            <enumeration value="RW"></enumeration>
+            <enumeration value="BL"></enumeration>
+            <enumeration value="SH"></enumeration>
+            <enumeration value="KN"></enumeration>
+            <enumeration value="LC"></enumeration>
+            <enumeration value="MF"></enumeration>
+            <enumeration value="PM"></enumeration>
+            <enumeration value="VC"></enumeration>
+            <enumeration value="WS"></enumeration>
+            <enumeration value="SM"></enumeration>
+            <enumeration value="ST"></enumeration>
+            <enumeration value="SA"></enumeration>
+            <enumeration value="SN"></enumeration>
+            <enumeration value="RS"></enumeration>
+            <enumeration value="SC"></enumeration>
+            <enumeration value="SL"></enumeration>
+            <enumeration value="SG"></enumeration>
+            <enumeration value="SX"></enumeration>
+            <enumeration value="SK"></enumeration>
+            <enumeration value="SI"></enumeration>
+            <enumeration value="SB"></enumeration>
+            <enumeration value="SO"></enumeration>
+            <enumeration value="ZA"></enumeration>
+            <enumeration value="GS"></enumeration>
+            <enumeration value="SS"></enumeration>
+            <enumeration value="ES"></enumeration>
+            <enumeration value="LK"></enumeration>
+            <enumeration value="SD"></enumeration>
+            <enumeration value="SR"></enumeration>
+            <enumeration value="SJ"></enumeration>
+            <enumeration value="SZ"></enumeration>
+            <enumeration value="SE"></enumeration>
+            <enumeration value="CH"></enumeration>
+            <enumeration value="SY"></enumeration>
+            <enumeration value="TW"></enumeration>
+            <enumeration value="TJ"></enumeration>
+            <enumeration value="TZ"></enumeration>
+            <enumeration value="TH"></enumeration>
+            <enumeration value="TL"></enumeration>
+            <enumeration value="TG"></enumeration>
+            <enumeration value="TK"></enumeration>
+            <enumeration value="TO"></enumeration>
+            <enumeration value="TT"></enumeration>
+            <enumeration value="TN"></enumeration>
+            <enumeration value="TR"></enumeration>
+            <enumeration value="TM"></enumeration>
+            <enumeration value="TC"></enumeration>
+            <enumeration value="TV"></enumeration>
+            <enumeration value="UG"></enumeration>
+            <enumeration value="UA"></enumeration>
+            <enumeration value="AE"></enumeration>
+            <enumeration value="GB"></enumeration>
+            <enumeration value="US"></enumeration>
+            <enumeration value="UM"></enumeration>
+            <enumeration value="UY"></enumeration>
+            <enumeration value="UZ"></enumeration>
+            <enumeration value="VU"></enumeration>
+            <enumeration value="VE"></enumeration>
+            <enumeration value="VN"></enumeration>
+            <enumeration value="VG"></enumeration>
+            <enumeration value="VI"></enumeration>
+            <enumeration value="WF"></enumeration>
+            <enumeration value="EH"></enumeration>
+            <enumeration value="YE"></enumeration>
+            <enumeration value="ZM"></enumeration>
+            <enumeration value="ZW"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <complexType name="actionConfirmCancelType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+            <element name="ip" type="hrd:ipv4Type"></element>
+        </sequence>
+    </complexType>
+    <complexType name="domainAuthInfoCheckType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="authInfo" type="string"></element>
+        </sequence>
+    </complexType>
+    <complexType name="domainBookType">
+        <all>
+            <element name="user" type="unsignedInt"></element>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+        </all>
+    </complexType>
+</schema>

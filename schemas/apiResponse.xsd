@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema targetNamespace="http://api.hrd.pl/api/"
+        elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hrd="http://api.hrd.pl/api/">
+    <element name="api" type="hrd:apiType"></element>
+
+    <group name="apiTypes">
+        <choice>
+            <element name="error" type="unsignedInt"></element>
+            <element name="poll" type="hrd:pollType"></element>
+            <element name="action" type="hrd:actionType"></element>
+            <element name="partner" type="hrd:partnerType"></element>
+            <element name="news" type="hrd:newsType"></element>
+            <element name="user" type="hrd:userType"></element>
+            <element name="domain" type="hrd:domainType"></element>
+            <element name="cert" type="hrd:certType"></element>
+        </choice>
+    </group>
+
+    <group name="pollTypes">
+        <choice>
+            <element name="get" type="hrd:pollGetType"></element>
+            <element name="ack" type="hrd:emptyTagType"></element>
+        </choice>
+    </group>
+
+    <group name="actionTypes">
+        <choice>
+            <element name="info" type="hrd:actionInfoType"></element>
+            <element name="list" type="hrd:actionListType"></element>
+        </choice>
+    </group>
+
+    <group name="partnerTypes">
+        <choice>
+            <element name="getBalance" type="hrd:partnerGetBalanceType"></element>
+            <element name="pricings" type="hrd:partnerPricingsListType"></element>
+            <element name="pricing" type="hrd:partnerPricingInfoType"></element>
+            <element name="resendTradeMail" type="hrd:emptyTagType"></element>
+            <element name="getKeys" type="hrd:partnerGetKeysType"></element>
+            <element name="setKey" type="hrd:emptyTagType"></element>
+            <element name="contactCreate" type="hrd:contactIdType"></element>
+            <element name="contactUpdate" type="hrd:actionIdOrEmptyType"></element>
+            <element name="contactDelete" type="hrd:actionIdOrEmptyType"></element>
+            <element name="contactInfo" type="hrd:contactInfoType"></element>
+            <element name="contactList" type="hrd:contactListType"></element>
+        </choice>
+    </group>
+
+    <group name="newsTypes">
+        <choice>
+            <element name="info" type="hrd:newsInfoType"></element>
+            <element name="list" type="hrd:newsListType"></element>
+        </choice>
+    </group>
+
+    <group name="userTypes">
+        <choice>
+            <element name="info" type="hrd:userInfoType"></element>
+            <element name="create" type="hrd:userCreateType"></element>
+            <element name="update" type="hrd:emptyTagType"></element>
+            <element name="list" type="hrd:userListType"></element>
+        </choice>
+    </group>
+
+    <group name="domainTypes">
+        <choice>
+            <element name="authInfoCheck" type="hrd:domainAuthInfoCheckType"></element>
+            <element name="check" type="hrd:domainCheckType"></element>
+            <element name="info" type="hrd:domainInfoType"></element>
+            <element name="book" type="hrd:domainBookType"></element>
+            <element name="create" type="hrd:domainCreateType"></element>
+            <element name="renew" type="hrd:domainRenewType"></element>
+            <element name="update" type="hrd:domainUpdateType"></element>
+            <element name="list" type="hrd:domainListType"></element>
+            <element name="privacySet" type="hrd:actionIdOrEmptyType"></element>
+            <element name="nsGroupInfo" type="hrd:domainNsGroupInfoType">
+                <unique name="nsGroupInfoUniqueName">
+                    <selector xpath="./ns/name"></selector>
+                    <field xpath="."></field>
+                </unique>
+            </element>
+            <element name="nsGroupCreate" type="hrd:domainNsGroupCreateType"></element>
+            <element name="nsGroupUpdate" type="hrd:actionIdOrEmptyType"></element>
+            <element name="nsGroupDelete" type="hrd:emptyTagType"></element>
+            <element name="nsGroupList" type="hrd:domainNsGroupListType"></element>
+            <element name="whois" type="hrd:domainWhoisType"></element>
+            <element name="contactList" type="hrd:domainContactListType"></element>
+            <element name="contactSet" type="hrd:contactSetType"></element>
+            <element name="tradeGetPw" type="hrd:domainGetPwType"></element>
+            <element name="tradeInnerGetPw" type="hrd:domainGetPwType"></element>
+            <element name="trade" type="hrd:actionIdType"></element>
+            <element name="tradeAssigneeCancel" type="hrd:emptyTagType"></element>
+            <element name="tradeAssignorCancel" type="hrd:emptyTagType"></element>
+            <element name="tradeStatus" type="hrd:domainTradeStatusType"></element>
+            <element name="tradePayerConfirm" type="hrd:emptyTagType"></element>
+            <element name="transfer" type="hrd:actionIdType"></element>
+            <element name="transferStatus" type="hrd:domainTransferStatusType"></element>
+            <element name="futureCheck" type="hrd:domainFutureCheckType"></element>
+            <element name="futureCreate" type="hrd:actionIdType"></element>
+            <element name="futureList" type="hrd:domainListType"></element>
+            <element name="futureInfo" type="hrd:domainFutureInfoType"></element>
+            <element name="futureRenew" type="hrd:actionIdType"></element>
+            <element name="dnsInfo" type="hrd:domainDnsInfoType"></element>
+            <element name="dnsChange" type="hrd:actionIdOrEmptyType"></element>
+            <element name="dnssecAdd" type="hrd:actionIdType"></element>
+            <element name="dnssecDelete" type="hrd:actionIdType"></element>
+            <element name="hostCreate" type="hrd:actionIdOrEmptyType"></element>
+            <element name="hostDelete" type="hrd:actionIdOrEmptyType"></element>
+            <element name="hostList" type="hrd:domainListType"></element>
+            <element name="hostInfo" type="hrd:domainHostInfoType"></element>
+        </choice>
+    </group>
+
+    <group name="certTypes">
+        <choice>
+            <element name="create" type="hrd:certCreateType"></element>
+            <element name="info" type="hrd:certInfoType"></element>
+            <element name="list" type="hrd:certListType"></element>
+            <element name="renew" type="hrd:certCreateType"></element>
+            <element name="get" type="hrd:certGetType"></element>
+            <element name="contactInfo" type="hrd:certContactInfoType"></element>
+            <element name="contactList" type="hrd:certContactListType"></element>
+        </choice>
+    </group>
+
+    <complexType name="apiType">
+        <sequence>
+            <element name="id" type="string" minOccurs="0" maxOccurs="1"></element>
+            <choice>
+                <sequence>
+                    <element name="status">
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="ok"></enumeration>
+                                <enumeration value="error"></enumeration>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="token" type="string" minOccurs="0"></element>
+                    <element name="message" type="string" minOccurs="0"></element>
+                </sequence>
+                <group ref="hrd:apiTypes" />
+            </choice>
+        </sequence>
+    </complexType>
+
+    <complexType name="emptyTagType"></complexType>
+
+    <complexType name="nsOrGroupType">
+        <choice>
+            <element name="group" type="unsignedInt"></element>
+            <element name="ns" type="hrd:nsType"></element>
+        </choice>
+    </complexType>
+
+    <complexType name="nsType">
+        <sequence>
+            <element name="ns" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                    <sequence>
+                        <element name="name" type="hrd:domainNameSimpleType"></element>
+                        <choice minOccurs="0" maxOccurs="unbounded">
+                            <element name="ipv4" type="hrd:ipv4Type"></element>
+                            <element name="ipv6" type="hrd:ipv6Type"></element>
+                        </choice>
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+    
+    <complexType name="domainNameIPType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element name="ipv4" type="hrd:ipv4Type"></element>
+                <element name="ipv6" type="hrd:ipv6Type"></element>
+            </choice>
+        </sequence>
+    </complexType>
+
+    <simpleType name="ipv4Type">
+        <restriction base="string">
+            <minLength value="7"></minLength>
+            <maxLength value="15"></maxLength>
+            <pattern
+                value="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="ipv6Type">
+        <restriction base="string">
+            <pattern
+                value="([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="domainNameSimpleType">
+        <restriction base="string">
+            <minLength value="3"></minLength>
+            <maxLength value="255"></maxLength>
+            <pattern
+                value="(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9]))(\.(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9])))*\.(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9]))">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="domainDnsNameSimpleType"> <!-- same as domainNameSimpleType but with "." at end -->
+        <restriction base="string">
+            <minLength value="4"></minLength>
+            <maxLength value="255"></maxLength>
+            <pattern
+                value="(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))(\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9])))*\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))\.">
+            </pattern>
+        </restriction>
+    </simpleType>
+
+    <complexType name="pollType">
+        <choice>
+            <group ref="hrd:pollTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="pollGetType">
+        <sequence minOccurs="0">
+            <element name="id" type="unsignedInt"></element>
+            <element name="object" type="string"></element>
+            <choice>
+                <element name="objectId" type="unsignedInt"></element>
+                <element name="objectName" type="string"></element>
+            </choice>
+            <element name="action" type="string"></element>
+            <element name="added" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="actionType">
+        <choice>
+            <group ref="hrd:actionTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="actionInfoType">
+        <all>
+            <element name="status" type="string"></element>
+            <element name="amount" type="float" minOccurs="0"></element>
+            <element name="added" type="string"></element>
+            <element name="type" type="string"></element>
+            <element name="object" type="string"></element>
+            <element name="objectName" type="string" minOccurs="0"></element>
+            <element name="objectId" type="string" minOccurs="0"></element>
+        </all>
+    </complexType>
+
+    <complexType name="actionListType">
+        <sequence>
+            <element name="id" type="unsignedInt" minOccurs="0"
+                     maxOccurs="unbounded">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainType">
+        <choice>
+            <group ref="hrd:domainTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="domainFutureCheckType">
+        <sequence>
+            <element name="name" maxOccurs="unbounded">
+                <complexType>
+                    <simpleContent>
+                        <extension base="hrd:domainNameSimpleType">
+                            <attribute name="status" use="required">
+                                <simpleType>
+                                    <restriction base="string">
+                                        <enumeration value="available"></enumeration>
+                                        <enumeration value="taken"></enumeration>
+                                        <enumeration value="unknown"></enumeration>
+                                    </restriction>
+                                </simpleType>
+                            </attribute>
+                        </extension>
+                    </simpleContent>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainFutureInfoType">
+        <all>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="crDate" type="string"></element>
+            <element name="exDate" type="string"></element>
+            <element name="user" type="unsignedInt"></element>
+            <element name="status">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="awaitingRegistration"></enumeration>
+                        <enumeration value="registered"></enumeration>
+                        <enumeration value="expired"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+        </all>
+    </complexType>
+
+    <complexType name="domainHostInfoType">
+        <all>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="ipv4" type="hrd:ipv4Type" minOccurs="0"></element>
+            <element name="ipv6" type="hrd:ipv6Type" minOccurs="0"></element>
+        </all>
+    </complexType>
+    
+    <complexType name="domainTradeStatusType">
+        <all>
+            <element name="domain" type="hrd:domainNameSimpleType"></element>
+            <element name="crDate" type="string"></element>
+            <element name="assignorId" type="unsignedInt" minOccurs="0"></element>
+            <element name="assignorAccepted" minOccurs="0" type="boolean"></element> <!-- empty if no action -->
+            <element name="assignorDate" minOccurs="0" type="string"></element> <!-- empty if no action -->
+            <element name="assigneeId" type="unsignedInt"></element>
+            <element name="assigneeAccepted" minOccurs="0" type="boolean"></element> <!-- empty if no action -->
+            <element name="assigneeDate" minOccurs="0" type="string"></element> <!-- empty if no action -->
+            <element name="adminConfirmationRequired" minOccurs="0" type="boolean"></element>
+            <element name="payerConfirmationRequired" minOccurs="0" type="boolean"></element>
+            <element name="status">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="pending"></enumeration>
+                        <enumeration value="confirmed"></enumeration>
+                        <enumeration value="cancelled"></enumeration>
+                        <enumeration value="failed"></enumeration>
+                        <enumeration value="completed"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="exDate" type="string" minOccurs="0"></element>
+            <element name="assignorIP" type="string" minOccurs="0"></element>
+            <element name="assigneeIP" type="string" minOccurs="0"></element>
+            <element name="assignorEmail" type="string" minOccurs="0"></element>
+            <element name="assigneeEmail" type="string" minOccurs="0"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainTransferStatusType">
+        <all>
+            <element name="domain" type="hrd:domainNameSimpleType"></element>
+            <element name="crDate" type="string"></element>
+            <element name="assignorId" type="unsignedInt" minOccurs="0"></element>
+            <element name="status">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="created"></enumeration>
+                        <enumeration value="started"></enumeration>
+                        <enumeration value="cancelled"></enumeration>
+                        <enumeration value="failed"></enumeration>
+                        <enumeration value="completed"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+        </all>
+    </complexType>
+
+    <complexType name="domainAuthInfoCheckType">
+        <sequence>
+            <element name="valid" type="boolean"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainCheckType">
+        <sequence>
+            <element name="name" maxOccurs="unbounded">
+                <complexType>
+                    <simpleContent>
+                        <extension base="hrd:domainNameSimpleType">
+                            <attribute name="status" use="required">
+                                <simpleType>
+                                    <restriction base="string">
+                                        <enumeration value="available"></enumeration>
+                                        <enumeration value="taken"></enumeration>
+                                        <enumeration value="createOnly"></enumeration>
+                                        <enumeration value="unknown"></enumeration>
+                                    </restriction>
+                                </simpleType>
+                            </attribute>
+                        </extension>
+                    </simpleContent>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainInfoType">
+        <sequence>
+            <element name="ns" type="hrd:nsOrGroupType" minOccurs="0"></element>
+            <element name="actions" type="hrd:actionList" minOccurs="0"></element>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="status">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="awaitingBooking"></enumeration>
+                        <enumeration value="booked"></enumeration>
+                        <enumeration value="bookedExpired"></enumeration>
+                        <enumeration value="awaitingRegistration"></enumeration>
+                        <enumeration value="registered"></enumeration>
+                        <enumeration value="expired"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="crDate" type="string" minOccurs="0"></element>
+            <element name="exDate" type="string" minOccurs="0"></element>
+            <element name="user" type="unsignedInt" minOccurs="0"></element>
+            <element name="contact" type="string" minOccurs="0"></element>
+            <element name="ppDate" type="string" minOccurs="0"></element>
+            <element name="privacy" type="boolean" minOccurs="0"></element>
+            <element name="dnssec" type="hrd:domainDnsSecInfoType" minOccurs="0"></element>
+            <element name="host" type="hrd:domainNameIPType" minOccurs="0" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainDnsSecInfoType">
+        <sequence>
+            <element name="record" type="hrd:domainDnsSecType" minOccurs="0" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainDnsSecType">
+        <all>
+            <element name="alg" type="unsignedInt"></element>
+            <element name="digestType" type="unsignedInt"></element>
+            <element name="digest" type="hrd:dnssecDigestType"></element>
+            <element name="keyTag" type="unsignedInt" minOccurs="0" maxOccurs="1"></element>
+            <element name="keyType" type="hrd:dnssecKeyType" minOccurs="0" maxOccurs="1"></element>
+        </all>
+    </complexType>
+
+    <simpleType name="dnssecDigestType">
+        <restriction base="string">
+            <minLength value="40"></minLength>
+            <maxLength value="4096"></maxLength>
+        </restriction>
+    </simpleType>
+    
+    <simpleType name="dnssecKeyType">
+        <restriction base="string">
+            <enumeration value="zsk"></enumeration>
+            <enumeration value="ksk"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <complexType name="contactSetType">
+        <sequence>
+            <element name="actionId" type="unsignedInt" minOccurs="0" maxOccurs="1"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="actionIdType">
+        <sequence>
+            <element name="actionId" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainBookType">
+        <sequence>
+            <element name="actionId" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainCreateType">
+        <sequence>
+            <element name="actionId" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainRenewType">
+        <sequence>
+            <element name="actionId" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainUpdateType">
+        <sequence>
+            <element name="actionId" type="unsignedInt" minOccurs="0" maxOccurs="1"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainListType">
+        <sequence>
+            <element name="name" type="string" minOccurs="0" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainNsGroupInfoType">
+        <sequence>
+            <element name="name" type="string"></element>
+            <element name="added" type="string"></element>
+            <element name="ns" type="hrd:nsWithoutIpType" minOccurs="2" maxOccurs="16"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="nsWithoutIpType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainNsGroupCreateType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+
+    <complexType name="domainNsGroupListType">
+        <sequence>
+            <element name="id" type="unsignedInt" minOccurs="0"
+                     maxOccurs="unbounded">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainWhoisType">
+        <sequence>
+            <element name="textResponse" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainContactListType">
+        <sequence>
+            <element name="registrant" type="unsignedInt" minOccurs="0"></element>
+            <element name="tech" type="unsignedInt" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainGetPwType">
+        <sequence>
+            <element name="pw" type="string"></element>
+        </sequence>
+    </complexType>
+
+
+    <complexType name="domainDnsInfoType">
+        <sequence>
+            <element name="name" type="hrd:domainNameSimpleType"></element>
+            <element name="rrset" minOccurs="0" maxOccurs="100" type="hrd:domainDnsRRSetType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainDnsRRSetType">
+        <sequence>
+            <element name="name" type="hrd:domainDnsNameSimpleType"></element>
+            <element name="type">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="A"></enumeration>
+                        <enumeration value="AAAA"></enumeration>
+                        <enumeration value="CNAME"></enumeration>
+                        <enumeration value="MX"></enumeration>
+                        <enumeration value="PTR"></enumeration>
+                        <enumeration value="NS"></enumeration>
+                        <enumeration value="SOA"></enumeration>
+                        <enumeration value="SRV"></enumeration>
+                        <enumeration value="TXT"></enumeration>
+                        <enumeration value="NAPTR"></enumeration>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="ttl" type="unsignedInt"></element>
+            <element name="record" minOccurs="1" maxOccurs="100" type="hrd:domainDnsRRSetRecordType"></element>
+            <element name="comment" minOccurs="0" maxOccurs="100" type="hrd:domainDnsRRSetCommentType"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="domainDnsRRSetRecordType">
+        <all>
+            <element name="content" type="string"></element>
+            <element name="disabled" type="boolean"></element>
+        </all>
+    </complexType>
+
+    <complexType name="domainDnsRRSetCommentType">
+        <all>
+            <element name="content" type="string"></element>
+            <element name="account" type="string"></element>
+        </all>
+    </complexType>
+
+    <complexType name="partnerType">
+        <choice>
+            <group ref="hrd:partnerTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="partnerGetKeysType">
+        <sequence>
+            <element name="entry" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                    <all>
+                        <element name="key" type="string"></element>
+                        <element name="value" type="string"></element>
+                    </all>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="partnerGetBalanceType">
+        <sequence>
+            <element name="balance" type="decimal"></element>
+            <element name="restrictedBalance" type="decimal"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="contactIdType">
+        <sequence>
+            <element name="contactId" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="actionIdOrEmptyType">
+        <sequence>
+            <element name="actionId" type="unsignedInt" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="contactInfoType">
+        <sequence>
+            <choice>
+                <element name="personType" type="hrd:emptyTagType"></element>
+                <element name="companyType" type="hrd:emptyTagType"></element>
+            </choice>
+            <element name="org" type="string" minOccurs="0"></element>
+            <element name="userId" type="string" minOccurs="0"></element>
+            <element name="name" type="string"></element>
+            <element name="voice" type="string" minOccurs="0"></element>
+            <element name="fax" type="string" minOccurs="0"></element>
+            <element name="street" type="string"></element>
+            <element name="postcode" type="string"></element>
+            <element name="city" type="string"></element>
+            <element name="sp" type="string"></element>
+            <element name="country" type="string"></element>
+            <element name="email" type="string"></element>
+            <element name="type" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="contactListType">
+        <sequence>
+            <element name="id" type="unsignedInt" minOccurs="0"
+                     maxOccurs="unbounded">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="newsType">
+        <choice>
+            <group ref="hrd:newsTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="newsInfoType">
+        <sequence>
+            <element name="title" type="string"></element>
+            <element name="message" type="string"></element>
+            <element name="archived" type="string"></element>
+            <element name="added" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="newsListType">
+        <sequence>
+            <element name="id" type="unsignedInt" minOccurs="0"
+                     maxOccurs="unbounded">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="userType">
+        <choice>
+            <group ref="hrd:userTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="userInfoType">
+        <sequence>
+            <element name="representative" type="string" minOccurs="0"></element>
+            <element name="landlinePhone" type="string" minOccurs="0"></element>
+            <element name="mobilePhone" type="string" minOccurs="0"></element>
+            <element name="fax" type="string" minOccurs="0"></element>
+            <element name="name" type="string"></element>
+            <element name="street" type="string"></element>
+            <element name="postcode" type="string"></element>
+            <element name="city" type="string"></element>
+            <element name="country" type="string"></element>
+            <element name="crDate" type="string"></element>
+            <element name="type" type="string"></element>
+            <element name="email" type="string"></element>
+            <element name="idNumber" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="userCreateType">
+        <sequence>
+            <element name="id" type="unsignedInt"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="userListType">
+        <sequence>
+            <element name="id" type="unsignedInt" minOccurs="0"
+                     maxOccurs="unbounded">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="certType">
+        <choice>
+            <group ref="hrd:certTypes" />
+        </choice>
+    </complexType>
+
+    <complexType name="certInfoType">
+        <all>
+            <element name="certContactId" type="unsignedInt"></element>
+            <element name="approverEmail" type="string"></element>
+            <element name="insurance" type="boolean"></element>
+            <element name="product" type="string"></element>
+            <element name="status" type="string"></element>
+            <element name="user" type="unsignedInt"></element>
+            <element name="crDate" type="string" minOccurs="0" maxOccurs="1"></element>
+            <element name="exDate" type="string" minOccurs="0" maxOccurs="1"></element>
+            <element name="csr" type="string" minOccurs="0" maxOccurs="1"></element>
+            <element name="domain" type="string" minOccurs="0"></element>
+        </all>
+    </complexType>
+
+    <complexType name="certCreateType">
+        <all>
+            <element name="actionId" type="unsignedInt"></element>
+            <element name="certId" type="unsignedInt"></element>
+            <element name="certContactId" type="unsignedInt"></element>
+        </all>
+    </complexType>
+
+    <complexType name="certListType">
+        <sequence>
+            <element name="id" type="unsignedInt" minOccurs="0"
+                     maxOccurs="unbounded">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="certGetType">
+        <sequence>
+            <element name="key" type="hrd:certKeyType"></element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="certKeyType">
+        <restriction base="string">
+            <maxLength value="3000"></maxLength>
+        </restriction>
+    </simpleType>
+    
+    <complexType name="certContactInfoType">
+        <all>
+            <element name="title" type="string"></element>
+            <element name="firstName" type="string"></element>
+            <element name="lastName" type="string"></element>
+            <element name="organization" type="string"></element>
+            <element name="taxId" type="string" minOccurs="0"></element>
+            <element name="role" type="string"></element>
+            <element name="email" type="string"></element>
+            <element name="phoneCC" type="string"></element>
+            <element name="phoneN" type="string"></element>
+            <element name="address" type="string"></element>
+            <element name="address2" type="string" minOccurs="0"></element>
+            <element name="city" type="string"></element>
+            <element name="state" type="string"></element>
+            <element name="postCode" type="string"></element>
+            <element name="country" type="string"></element>
+            <element name="userId" type="unsignedInt"></element>
+        </all>
+    </complexType>
+
+    <complexType name="certContactListType">
+        <sequence>
+            <element name="id" type="unsignedInt" minOccurs="0"
+                     maxOccurs="unbounded">
+            </element>
+        </sequence>
+    </complexType>
+
+    <!-- internal -->
+    <complexType name="partnerPricingsListType">
+        <sequence>
+            <element name="name" type="string" minOccurs="0" maxOccurs="unbounded"></element>
+            <element name="pricing" type="hrd:partnerPricingType" minOccurs="0" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+    <complexType name="partnerPricingType">
+        <sequence>
+            <element name="name" type="string"></element>
+            <element name="price" type="hrd:pricingPriceType" minOccurs="0" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+    <complexType name="pricingPriceType">
+        <sequence>
+            <element name="name" type="string"></element>
+            <element name="value" type="string"></element>
+        </sequence>
+    </complexType>
+    <complexType name="partnerPricingInfoType">
+        <sequence>
+            <element name="name" type="string" minOccurs="1"></element>
+            <element name="prices">
+                <complexType>
+                    <sequence>
+                        <element name="price" type="hrd:pricingPriceType" minOccurs="0" maxOccurs="unbounded"></element>
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="actionList">
+        <sequence>
+            <element name="id" type="unsignedInt" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+</schema>
