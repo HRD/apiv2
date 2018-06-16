@@ -2,8 +2,13 @@
 
 - [Oficjalna Dokumentacja](https://api.hrd.pl/)
 
+### Installation
 
-Usage
+```sh
+$ composer require hrdbase/api
+```
+
+### Usage
 
 ``` php
 use HRDBase\Api\HRDApi;
