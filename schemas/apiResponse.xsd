@@ -92,10 +92,12 @@
             <element name="trade" type="hrd:actionIdType"></element>
             <element name="tradeAssigneeCancel" type="hrd:emptyTagType"></element>
             <element name="tradeAssignorCancel" type="hrd:emptyTagType"></element>
+            <element name="tradeCancel" type="hrd:emptyTagType"></element>
             <element name="tradeStatus" type="hrd:domainTradeStatusType"></element>
             <element name="tradePayerConfirm" type="hrd:emptyTagType"></element>
             <element name="transfer" type="hrd:actionIdType"></element>
             <element name="transferStatus" type="hrd:domainTransferStatusType"></element>
+            <element name="transferRegistrantEmail" type="hrd:domainTransferRegistrantEmailType"></element>
             <element name="futureCheck" type="hrd:domainFutureCheckType"></element>
             <element name="futureCreate" type="hrd:actionIdType"></element>
             <element name="futureList" type="hrd:domainListType"></element>
@@ -107,6 +109,7 @@
             <element name="dnssecDelete" type="hrd:actionIdType"></element>
             <element name="hostCreate" type="hrd:actionIdOrEmptyType"></element>
             <element name="hostDelete" type="hrd:actionIdOrEmptyType"></element>
+            <element name="hostUpdate" type="hrd:actionIdOrEmptyType"></element>
             <element name="hostList" type="hrd:domainListType"></element>
             <element name="hostInfo" type="hrd:domainHostInfoType"></element>
         </choice>
@@ -169,7 +172,7 @@
             </element>
         </sequence>
     </complexType>
-    
+
     <complexType name="domainNameIPType">
         <sequence>
             <element name="name" type="hrd:domainNameSimpleType"></element>
@@ -185,7 +188,7 @@
             <minLength value="7"></minLength>
             <maxLength value="15"></maxLength>
             <pattern
-                value="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)">
+                    value="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)">
             </pattern>
         </restriction>
     </simpleType>
@@ -193,7 +196,7 @@
     <simpleType name="ipv6Type">
         <restriction base="string">
             <pattern
-                value="([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:">
+                    value="([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:">
             </pattern>
         </restriction>
     </simpleType>
@@ -203,7 +206,7 @@
             <minLength value="3"></minLength>
             <maxLength value="255"></maxLength>
             <pattern
-                value="(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9]))(\.(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9])))*\.(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9]))">
+                    value="(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9]))(\.(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9])))*\.(([a-zA-Z0-9]{1,63})|([a-zA-Z0-9][a-zA-Z0-9_\-]{0,61}[a-zA-Z0-9]))">
             </pattern>
         </restriction>
     </simpleType>
@@ -213,7 +216,7 @@
             <minLength value="4"></minLength>
             <maxLength value="255"></maxLength>
             <pattern
-                value="(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))(\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9])))*\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))\.">
+                    value="(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))(\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9])))*\.(([a-z0-9]{1,63})|([a-z0-9][a-z0-9_\-]{0,61}[a-z0-9]))\.">
             </pattern>
         </restriction>
     </simpleType>
@@ -316,7 +319,7 @@
             <element name="ipv6" type="hrd:ipv6Type" minOccurs="0"></element>
         </all>
     </complexType>
-    
+
     <complexType name="domainTradeStatusType">
         <all>
             <element name="domain" type="hrd:domainNameSimpleType"></element>
@@ -353,19 +356,16 @@
             <element name="domain" type="hrd:domainNameSimpleType"></element>
             <element name="crDate" type="string"></element>
             <element name="assignorId" type="unsignedInt" minOccurs="0"></element>
-            <element name="status">
-                <simpleType>
-                    <restriction base="string">
-                        <enumeration value="created"></enumeration>
-                        <enumeration value="started"></enumeration>
-                        <enumeration value="cancelled"></enumeration>
-                        <enumeration value="failed"></enumeration>
-                        <enumeration value="completed"></enumeration>
-                    </restriction>
-                </simpleType>
-            </element>
+            <element name="status" type="string"></element>
         </all>
     </complexType>
+
+    <complexType name="domainTransferRegistrantEmailType">
+        <sequence>
+            <element name="email" type="string"></element>
+        </sequence>
+    </complexType>
+
 
     <complexType name="domainAuthInfoCheckType">
         <sequence>
@@ -410,6 +410,8 @@
                         <enumeration value="awaitingRegistration"></enumeration>
                         <enumeration value="registered"></enumeration>
                         <enumeration value="expired"></enumeration>
+                        <enumeration value="blocked"></enumeration>
+                        <enumeration value="ordered"></enumeration>
                     </restriction>
                 </simpleType>
             </element>
@@ -446,7 +448,7 @@
             <maxLength value="4096"></maxLength>
         </restriction>
     </simpleType>
-    
+
     <simpleType name="dnssecKeyType">
         <restriction base="string">
             <enumeration value="zsk"></enumeration>
@@ -767,7 +769,7 @@
             <maxLength value="3000"></maxLength>
         </restriction>
     </simpleType>
-    
+
     <complexType name="certContactInfoType">
         <all>
             <element name="title" type="string"></element>
